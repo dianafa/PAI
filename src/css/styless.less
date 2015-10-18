@@ -1,0 +1,23 @@
+@import 'elements';
+
+@red: #FF0000;
+@w: 14px;
+@cos: 20pt;
+
+.rounded(@r: 5px) {
+  border-radius: @r;
+}
+
+.diana {
+  color: @red;
+  width: @w * 2 + 1em -10% + @cos;
+}
+
+.some-div {
+  .rounded();
+  .rotation();
+}
+
+.some-bigger-div {
+  .rounded(10px);
+}

@@ -87,21 +87,22 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+body {
+    margin: auto;
+}
 
+aside {
+    background-color: pink;
+    border: 1px solid black;
+}
 
+header {
+    background-color: greenyellow;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+footer {
+    background-color: deepskyblue;
+}
 
 
 /* ==========================================================================
