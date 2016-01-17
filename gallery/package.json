@@ -1,0 +1,14 @@
+{
+  "name": "pai_gallery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "galleryServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "xml": "^1.0.0"
+  }
+}

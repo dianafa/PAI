@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <title>My Gallery</title>
+
+    <script type="text/javascript">
+        var p = 0,
+            iPP = 3,
+            xmlhttp;
+
+        function getImages(page, itemsPerPage) {
+            var url = "http://localhost:3000/gallery/" + page,
+                navigation = document.getElementById("navigation");
+
+            p=page;
+            iPP=itemsPerPage;
+            next=p+1;
+            prev=p-1;
+
+            if (page == 0) {
+                navigation.innerHTML = "<span id='prev'>Prev</span> - <span id='next'><a href='javascript:getImages(next,iPP);'>Next</a></span>"
+            } else {
+                navigation.innerHTML = "<span id='prev'><a href='javascript:getImages(prev,iPP);'>Prev</a></span> - <span id='next'><a href='javascript:getImages(next,iPP);'>Next</a></span>"
+            }
+
+            xmlhttp=null;
+
+            // The code below makes XMLHttpRequest work in Internet Explorer 5.0, 5.5, and 6.0 as well.
+            // Note: Since it already works in Firefox, Safari, Opera, and Internet Explorer 7.0, this means it works everywhere now.
+            if (!window.XMLHttpRequest && window.ActiveXObject) {
+                window.XMLHttpRequest = function () {
+                    xmlhttp=new ActiveXObject(navigator.userAgent.indexOf("MSIE 5") != -1 ? "Microsoft.XMLHTTP" : "MSXML2.XMLHTTP");
+                };
+            } else {
+                xmlhttp=new XMLHttpRequest();
+            }
+
+            if (xmlhttp!=null) {
+                xmlhttp.onreadystatechange=onStateChange;
+                xmlhttp.open("GET", url, true);
+                xmlhttp.send(null);
+            } else {
+                alert("The XMLHttpRequest not supported");
+            }
+        }
+
+        function onStateChange() {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200) {    // 4 => loaded complete
+                var xmlDoc=xmlhttp.responseXML,
+                    images = xmlDoc.getElementsByTagName('Image'),
+                    myContent = '';
+
+                if (images.length < 3) {
+                    document.getElementById("next").style.display = 'none';
+                }
+
+                for (i = 0; i < images.length; i++) {
+                    imageXML=images[i];
+                    myContent += " <img src='" + imageXML.firstChild.nodeValue + "' /> ";
+
+                }
+                document.getElementById("imageContainer").innerHTML = myContent;
+
+            }
+        }
+        </script>
+    </head>
+    <body>
+        <input type="button" value="Go for it!" onClick="javascript:getImages(1,3);">
+
+        <div id="imageContainer"></div>
+        <div id="navigation"></div>
+
+    </body>
+    </html>
